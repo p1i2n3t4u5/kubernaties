@@ -1,0 +1,9 @@
+spring.application.name=spring-micro-site-crawler
+spring.profiles.active=dev
+server.port=8100
+
+spring.sleuth.traceId128=true
+spring.sleuth.sampler.probability=1.0
+
+
+

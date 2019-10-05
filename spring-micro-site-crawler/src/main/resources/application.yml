@@ -1,0 +1,24 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+server:
+  port: 8100
+spring:
+  application:
+    name: spring-micro-site-crawler
+  cloud:
+    kubernetes:
+       discovery:
+        all-namespaces: true  
+  profiles:
+    active: dev
+  sleuth:
+    sampler:
+      probability: 1.0
+    traceId128: true
+    enabled: true
+  
+  zipkin:
+    enabled: true

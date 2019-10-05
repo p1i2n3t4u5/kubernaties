@@ -1,0 +1,24 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+server:
+  port: 8080
+spring:
+  application:
+    name: spring-micro-elastic
+  cloud:
+    kubernetes:
+      discovery:
+        all-namespaces: true
+        enabled: false    
+  profiles:
+    active: dev
+  sleuth:
+    sampler:
+      probability: 1.0
+    traceId128: true
+    enabled: true
+  zipkin:
+    enabled: true

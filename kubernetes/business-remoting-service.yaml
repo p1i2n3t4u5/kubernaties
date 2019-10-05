@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: business-remoting-service
+  labels:
+    app: business-remoting-app
+spec:
+  selector:
+    app: business-remoting-app
+  type: NodePort
+  ports:
+  - nodePort: 31000
+    port: 8000
+    targetPort: 8000
+    protocol: TCP

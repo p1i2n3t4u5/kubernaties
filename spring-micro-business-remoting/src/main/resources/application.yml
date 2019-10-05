@@ -1,0 +1,30 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+server:
+  port: 8000
+spring:
+  application:
+    name: spring-micro-business-remoting
+  cloud:
+    kubernetes:
+      discovery:
+        all-namespaces: true
+        enabled: false
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  jpa:
+    show-sql: true
+  profiles:
+    active: dev
+  sleuth:
+    sampler:
+      probability: 1.0
+    traceId128: true
+    enabled: true
+  zipkin:
+    enabled: true

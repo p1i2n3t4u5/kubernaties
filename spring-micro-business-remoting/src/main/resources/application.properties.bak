@@ -1,0 +1,13 @@
+spring.application.name=spring-micro-business-remoting
+spring.profiles.active=dev
+server.port=8000
+
+spring.jpa.show-sql=true
+spring.h2.console.enabled=true
+spring.h2.console.path=/h2-console
+
+spring.sleuth.traceId128=true
+spring.sleuth.sampler.probability=1.0
+
+spring.cloud.kubernetes.discovery.all-namespaces=true
+spring.cloud.kubernetes.discovery.enabled=false
