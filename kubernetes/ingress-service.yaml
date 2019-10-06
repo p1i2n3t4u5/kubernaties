@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: my-ingress
+spec:
+# backend used for default routing service and port incase non of the path matches
+# if  not provided GKE provides a default backend that returns 404.
+#  backend:
+#    serviceName: my-products
+#    servicePort: 60001
+  rules:
+  - http:
+      paths:
+      - path: /crawler
+        backend:
+          serviceName: site-crawler-service
+          servicePort: 8100
+      - path: /business
+        backend:
+          serviceName: business-remoting-service
+          servicePort: 8000
+      - path: /elastic
+        backend:
+          serviceName: elastic-service
+          servicePort: 8080
