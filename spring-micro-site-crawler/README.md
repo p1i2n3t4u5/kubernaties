@@ -2,6 +2,8 @@ docker build -t  pintu12345/spring-micro-site-crawler:v2 .
 docker push pintu12345/spring-micro-site-crawler:v2
 
 
+gcloud compute firewall-rules create test-node-port --allow tcp:31002
+
 -----------------------------------------------------------------------------
 http://localhost:8100/currency-converter/from/USD/to/INR/quantity/1
 

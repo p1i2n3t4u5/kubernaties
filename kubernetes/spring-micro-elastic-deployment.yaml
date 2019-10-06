@@ -19,3 +19,6 @@ spec:
         image: pintu12345/spring-micro-elastic:v2
         ports:
         - containerPort: 8080
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: prod

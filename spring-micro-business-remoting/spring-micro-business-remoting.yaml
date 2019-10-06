@@ -1,38 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: spring-micro-business-remoting
+  name: spring-micro-site-crawler
   labels:
-    app: business-remoting-app
+    app: site-crawler-app
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: business-remoting-app
+      app: site-crawler-app
   template:
     metadata:
       labels:
-        app: business-remoting-app
+        app: site-crawler-app
     spec:
       containers:
-      - name: spring-micro-business-remoting
-        image: pintu12345/spring-micro-business-remoting:v2
+      - name: spring-micro-site-crawler
+        image: pintu12345/spring-micro-site-crawler:v2
         ports:
         - containerPort: 8000
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: business-remoting-service
-  labels:
-    app: business-remoting-app
-spec:
-  selector:
-    app: business-remoting-app
-#  type: NodePort
-  ports:
-#  - nodePort: 31000
-  - port: 8000
-    targetPort: 8000
-    protocol: TCP
-  
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: dev

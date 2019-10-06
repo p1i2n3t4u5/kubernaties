@@ -30,5 +30,9 @@ localhost:8081/actuator/bus-refresh    or    localhost:8080/actuator/bus-refresh
 docker build -t  pintu12345/spring-micro-elastic:v2 . 
 docker push pintu12345/spring-micro-elastic:v2
 
+kubectl create -f C:\project\kubernaties\kubernetes\spring-micro-elastic-deployment.yaml
+kubectl create -f C:\project\kubernaties\kubernetes\elastic-service .yaml
+
+gcloud compute firewall-rules create test-node-port2 --allow tcp:31001
 
 
