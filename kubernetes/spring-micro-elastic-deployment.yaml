@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-micro-elastic
+  labels:
+    app: elastic-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: elastic-app
+  template:
+    metadata:
+      labels:
+        app: elastic-app
+    spec:
+      containers:
+      - name: spring-micro-elastic
+        image: pintu12345/spring-micro-elastic:v2
+        ports:
+        - containerPort: 8080

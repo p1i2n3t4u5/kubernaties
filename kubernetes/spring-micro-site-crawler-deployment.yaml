@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-micro-site-crawler
+  labels:
+    app: site-crawler-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: site-crawler-app
+  template:
+    metadata:
+      labels:
+        app: site-crawler-app
+    spec:
+      containers:
+      - name: spring-micro-site-crawler
+        image: pintu12345/spring-micro-site-crawler:v2
+        ports:
+        - containerPort: 8000
