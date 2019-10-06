@@ -25,3 +25,10 @@ http://localhost:8888/spring-micro-elastic/default
 
 localhost:8081/actuator/bus-refresh    or    localhost:8080/actuator/bus-refresh
 
+
+--------------------------------------------------------------------------------------
+docker build -t  pintu12345/spring-micro-elastic:v2 . 
+docker push pintu12345/spring-micro-elastic:v2
+
+
+

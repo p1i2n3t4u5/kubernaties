@@ -1,3 +1,8 @@
+docker build -t  pintu12345/spring-micro-site-crawler:v2 . 
+docker push pintu12345/spring-micro-site-crawler:v2
+
+
+-----------------------------------------------------------------------------
 http://localhost:8100/currency-converter/from/USD/to/INR/quantity/1
 
 http://localhost:8100/currency-converter/from/USD/to/INR/quantity/3

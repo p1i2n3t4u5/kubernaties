@@ -1,3 +1,4 @@
+#'default' profile only 
 management:
   endpoints:
     web:
@@ -28,3 +29,15 @@ spring:
     enabled: true
   zipkin:
     enabled: true
+
+#'dev' profile only 
+--- 
+spring:
+  profiles: dev 
+
+ 
+#'prod' profile only 
+--- 
+spring:
+  profiles: prod 
+

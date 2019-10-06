@@ -1,3 +1,4 @@
+#'default' profile only 
 management:
   endpoints:
     web:
@@ -22,3 +23,26 @@ spring:
     enabled: true
   zipkin:
     enabled: true
+    
+spring-micro-elastic:
+  maximum: 8888
+  minimum: 88
+    
+#'dev' profile only 
+--- 
+spring:
+  profiles: dev 
+#over riding the value 
+spring-micro-elastic:
+#  maximum: 5555
+  minimum: 22
+ 
+#'prod' profile only 
+--- 
+spring:
+  profiles: prod 
+  
+spring-micro-elastic:
+  maximum: 9999
+  minimum: 99
+    

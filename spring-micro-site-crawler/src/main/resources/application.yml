@@ -1,3 +1,4 @@
+#'default' profile only
 management:
   endpoints:
     web:
@@ -18,7 +19,16 @@ spring:
     sampler:
       probability: 1.0
     traceId128: true
-    enabled: true
-  
+    enabled: true  
   zipkin:
     enabled: true
+    
+#'dev' profile only 
+--- 
+spring:
+  profiles: dev 
+
+#'prod' profile only 
+--- 
+spring:
+  profiles: prod 
