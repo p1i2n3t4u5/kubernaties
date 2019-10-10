@@ -74,3 +74,31 @@ docker build -t  pintu12345/spring-micro-business-remoting:v2 .
 docker push  pintu12345/spring-micro-business-remoting:v2
 
 
+Links
+-------
+
+https://github.com/kubernetes/ingress-nginx/blob/master/deploy/static/provider/cloud-generic.yaml
+https://kubernetes.github.io/ingress-nginx/deploy/rbac/
+http://rahmonov.me/posts/nginx-ingress-controller/
+https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md
+https://kubernetes.github.io/ingress-nginx/examples/rewrite/
+https://kubernetes.io/docs/reference/kubectl/cheatsheet/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
