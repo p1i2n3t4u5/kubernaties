@@ -1,0 +1,28 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: spring-micro-elastic
+data:
+  application.yml: |-
+        #'default' profile only 
+        spring-micro-elastic:
+          maximum: 8888
+          minimum: 88
+            
+        #'dev' profile only 
+        --- 
+        spring:
+          profiles: dev 
+        #over riding the value 
+        spring-micro-elastic:
+        #  maximum: 5555
+          minimum: 22
+         
+        #'prod' profile only 
+        --- 
+        spring:
+          profiles: prod 
+          
+        spring-micro-elastic:
+          maximum: 7676
+          minimum: 76

@@ -4,15 +4,35 @@ management:
     web:
       exposure:
         include: '*'
+  endpoint:
+      restart:
+        enabled: true      
+      refresh:
+        enabled: true    
+
+eureka:
+   client:
+    enabled: false 
+         
 server:
   port: 8100
 spring:
   application:
-    name: spring-micro-site-crawler
+    name: spring-micro-elastic
   cloud:
     kubernetes:
-       discovery:
-        all-namespaces: true  
+      discovery:
+        all-namespaces: true
+        enabled: true 
+      config:
+        enabled: true
+        name: ${spring.application.name}
+        namespace: default
+      reload:
+        enabled: true
+        monitoring-config-maps: true
+        strategy: refresh
+        mode: event
   profiles:
     active: dev
   sleuth:

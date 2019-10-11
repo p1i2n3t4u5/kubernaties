@@ -1,0 +1,17 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: spring-micro-business-remoting
+data:
+  application.yml: |-
+      #'default' profile only 
+      #'dev' profile only 
+      --- 
+      spring:
+        profiles: dev 
+      
+       
+      #'prod' profile only 
+      --- 
+      spring:
+        profiles: prod 

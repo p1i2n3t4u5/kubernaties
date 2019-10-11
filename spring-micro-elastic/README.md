@@ -36,3 +36,15 @@ kubectl create -f C:\project\kubernaties\kubernetes\elastic-service .yaml
 gcloud compute firewall-rules create test-node-port2 --allow tcp:31001
 
 
+
+gcloud logging logs list
+gcloud logging logs delete  projects/sillybilly-246306/logs/spring-micro-site-crawler
+gcloud logging logs delete  projects/sillybilly-246306/logs/spring-micro-elastic
+gcloud logging logs delete  projects/sillybilly-246306/logs/spring-micro-business-remoting
+
+
+
+
+
+
+

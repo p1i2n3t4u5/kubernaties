@@ -1,9 +1,17 @@
 #'default' profile only 
+  
+
 management:
   endpoints:
     web:
       exposure:
         include: '*'
+  endpoint:
+    restart:
+      enabled: true      
+    refresh:
+      enabled: true    
+        
 server:
   port: 8080
 spring:
@@ -13,7 +21,17 @@ spring:
     kubernetes:
       discovery:
         all-namespaces: true
-        enabled: false    
+        enabled: true 
+      config:
+        enabled: true
+        name: ${spring.application.name}
+        namespace: default
+      reload:
+        enabled: true
+        monitoring-config-maps: true
+        strategy: refresh
+        mode: event
+               
   profiles:
     active: dev
   sleuth:

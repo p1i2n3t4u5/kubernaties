@@ -4,16 +4,30 @@ management:
     web:
       exposure:
         include: '*'
+  endpoint:
+      restart:
+        enabled: true      
+      refresh:
+        enabled: true           
 server:
   port: 8000
 spring:
   application:
-    name: spring-micro-business-remoting
+    name: spring-micro-elastic
   cloud:
     kubernetes:
       discovery:
         all-namespaces: true
-        enabled: false
+        enabled: true 
+      config:
+        enabled: true
+        name: ${spring.application.name}
+        namespace: default
+      reload:
+        enabled: true
+        monitoring-config-maps: true
+        strategy: refresh
+        mode: event
   h2:
     console:
       enabled: true
