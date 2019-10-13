@@ -69,9 +69,9 @@ https://github.com/spotify/dockerfile-maven
 
 kubectl create clusterrolebinding admin --clusterrole=cluster-admin --serviceaccount=default:default
 
-docker build -t  pintu12345/spring-micro-business-remoting:v2 .
+docker build -t  pintu12345/spring-micro-business-remoting:v3 .
 
-docker push  pintu12345/spring-micro-business-remoting:v2
+docker push  pintu12345/spring-micro-business-remoting:v3
 
 
 Links
