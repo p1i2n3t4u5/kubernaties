@@ -1,5 +1,5 @@
-docker build -t  pintu12345/spring-micro-site-crawler:v2 . 
-docker push pintu12345/spring-micro-site-crawler:v2
+docker build -t  pintu12345/spring-micro-site-crawler:v3 . 
+docker push pintu12345/spring-micro-site-crawler:v3
 
 
 gcloud compute firewall-rules create test-node-port3 --allow tcp:31002
