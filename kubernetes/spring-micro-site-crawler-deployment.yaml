@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: spring-micro-site-crawler
-        image: pintu12345/spring-micro-site-crawler:v2
+        image: pintu12345/spring-micro-site-crawler:v3
         ports:
         - containerPort: 8100
         env:

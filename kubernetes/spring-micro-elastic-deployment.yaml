@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: spring-micro-elastic
-        image: pintu12345/spring-micro-elastic:v2
+        image: pintu12345/spring-micro-elastic:v3
         ports:
         - containerPort: 8080
         env:

@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: spring-micro-business-remoting
-        image: pintu12345/spring-micro-business-remoting:v2
+        image: pintu12345/spring-micro-business-remoting:v3
         ports:
         - containerPort: 8000
         env:
