@@ -4,25 +4,78 @@ metadata:
   name: spring-micro-elastic
 data:
   application.yml: |-
-        #'default' profile only 
-        spring-micro-elastic:
-          maximum: 8888
-          minimum: 88
-            
-        #'dev' profile only 
-        --- 
-        spring:
-          profiles: dev 
-        #over riding the value 
-        spring-micro-elastic:
-        #  maximum: 5555
-          minimum: 22
-         
-        #'prod' profile only 
-        --- 
-        spring:
-          profiles: prod 
+      management:
+        endpoints:
+          web:
+            exposure:
+              include: '*'
+        endpoint:
+          restart:
+            enabled: true      
+          refresh:
+            enabled: true    
+              
+      server:
+        port: 8080
+      spring:
+        application:
+          name: spring-micro-elastic
+        cloud:
+          kubernetes:
+            discovery:
+              all-namespaces: true
+              enabled: true 
+            config:
+              enabled: true
+              name: ${spring.application.name}
+              namespace: default
+            reload:
+              enabled: true
+              monitoring-config-maps: true
+              strategy: refresh
+              mode: event
+                     
+        profiles:
+          active: dev
+        sleuth:
+          sampler:
+            probability: 1.0
+          traceId128: true
+          enabled: true
+        zipkin:
+          enabled: true
           
-        spring-micro-elastic:
-          maximum: 7676
-          minimum: 76
+      spring-micro-elastic:
+        maximum: 8888
+        minimum: 88
+      last:
+        applied:
+          profile: configmap_default 
+          
+      #'dev' profile only 
+      --- 
+      spring:
+        profiles: dev 
+      #over riding the value 
+      spring-micro-elastic:
+      #  maximum: 5555
+        minimum: 22
+      last:
+        applied:
+          profile: configmap_dev 
+      
+      
+       
+      #'prod' profile only 
+      --- 
+      spring:
+        profiles: prod 
+        
+      spring-micro-elastic:
+        maximum: 6666
+        minimum: 77
+        
+      last:
+        applied:
+          profile: configmap_prod 
+      

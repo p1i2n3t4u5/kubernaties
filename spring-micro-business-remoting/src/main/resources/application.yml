@@ -13,7 +13,7 @@ server:
   port: 8000
 spring:
   application:
-    name: spring-micro-elastic
+    name: spring-micro-business-remoting
   cloud:
     kubernetes:
       discovery:
@@ -43,15 +43,35 @@ spring:
     enabled: true
   zipkin:
     enabled: true
+logging: 
+    level:
+        root: info  
+last:
+  applied:
+    profile: application_default           
+    
 
 #'dev' profile only 
 --- 
 spring:
   profiles: dev 
+logging: 
+    level:
+        root: warn  
+last:
+  applied:
+    profile: application_dev         
 
  
 #'prod' profile only 
 --- 
 spring:
   profiles: prod 
+logging: 
+    level:
+        root: error
+last:
+  applied:
+    profile: application_prod            
+        
 

@@ -45,6 +45,10 @@ spring:
 spring-micro-elastic:
   maximum: 8888
   minimum: 88
+last:
+  applied:
+    profile: application_default
+  
     
 #'dev' profile only 
 --- 
@@ -54,6 +58,9 @@ spring:
 spring-micro-elastic:
 #  maximum: 5555
   minimum: 22
+last:
+  applied:
+    profile: application_dev 
  
 #'prod' profile only 
 --- 
@@ -63,4 +70,7 @@ spring:
 spring-micro-elastic:
   maximum: 9999
   minimum: 99
+last:
+  applied:
+    profile: application_prod 
     

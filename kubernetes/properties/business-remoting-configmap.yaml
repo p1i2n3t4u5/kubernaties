@@ -4,14 +4,77 @@ metadata:
   name: spring-micro-business-remoting
 data:
   application.yml: |-
-      #'default' profile only 
+     #'default' profile only 
+      management:
+        endpoints:
+          web:
+            exposure:
+              include: '*'
+        endpoint:
+            restart:
+              enabled: true      
+            refresh:
+              enabled: true           
+      server:
+        port: 8000
+      spring:
+        application:
+          name: spring-micro-business-remoting
+        cloud:
+          kubernetes:
+            discovery:
+              all-namespaces: true
+              enabled: true 
+            config:
+              enabled: true
+              name: ${spring.application.name}
+              namespace: default
+            reload:
+              enabled: true
+              monitoring-config-maps: true
+              strategy: refresh
+              mode: event
+        h2:
+          console:
+            enabled: true
+            path: /h2-console
+        jpa:
+          show-sql: true
+        profiles:
+          active: dev
+        sleuth:
+          sampler:
+            probability: 1.0
+          traceId128: true
+          enabled: true
+        zipkin:
+          enabled: true
+      logging: 
+          level:
+              root: info  
+      last:
+        applied:
+          profile: configmap_default   
+      
       #'dev' profile only 
       --- 
       spring:
         profiles: dev 
+      logging: 
+          level:
+              root: warn  
+      last:
+        applied:
+          profile: configmap_dev 
       
        
       #'prod' profile only 
       --- 
       spring:
         profiles: prod 
+      logging: 
+          level:
+              root: error
+      last:
+        applied:
+          profile: configmap_prod 

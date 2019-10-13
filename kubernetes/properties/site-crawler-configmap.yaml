@@ -5,12 +5,66 @@ metadata:
 data:
   application.yml: |-
       #'default' profile only
+      management:
+        endpoints:
+          web:
+            exposure:
+              include: '*'
+        endpoint:
+            restart:
+              enabled: true      
+            refresh:
+              enabled: true    
+      
+      eureka:
+         client:
+          enabled: false 
+               
+      server:
+        port: 8100
+      spring:
+        application:
+          name: spring-micro-site-crawler
+        cloud:
+          kubernetes:
+            discovery:
+              all-namespaces: true
+              enabled: true 
+            config:
+              enabled: true
+              name: ${spring.application.name}
+              namespace: default
+            reload:
+              enabled: true
+              monitoring-config-maps: true
+              strategy: refresh
+              mode: event
+        profiles:
+          active: dev
+        sleuth:
+          sampler:
+            probability: 1.0
+          traceId128: true
+          enabled: true  
+        zipkin:
+          enabled: true
+      last:
+        applied:
+          profile: configmap_default    
+          
       #'dev' profile only 
       --- 
       spring:
         profiles: dev 
+      last:
+        applied:
+          profile: configmap_dev
+        
       
       #'prod' profile only 
       --- 
       spring:
         profiles: prod 
+      last:
+        applied:
+          profile: configmap_prod  
