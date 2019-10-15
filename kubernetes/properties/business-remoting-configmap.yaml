@@ -32,8 +32,10 @@ data:
             reload:
               enabled: true
               monitoring-config-maps: true
+              monitoring-secrets: true
               strategy: refresh
               mode: event
+              period: 15s
         h2:
           console:
             enabled: true
@@ -66,6 +68,10 @@ data:
       last:
         applied:
           profile: configmap_dev 
+      ribbon:
+           http:
+            client:
+               enabled: true 
       
        
       #'prod' profile only 

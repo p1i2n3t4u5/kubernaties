@@ -1,5 +1,8 @@
 package com.aem.micro.controller;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +28,26 @@ public class CurrencyExchangeController {
 	public String test() {
       return "spring-micro-business-remoting working";
 	}
+	
+	
+	@GetMapping("/get")
+	public String get() throws UnknownHostException {
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Host: ")
+            .append(InetAddress.getLocalHost()
+                .getHostName())
+            .append("<br/>");
+        stringBuilder.append("IP: ")
+            .append(InetAddress.getLocalHost()
+                .getHostAddress())
+            .append("<br/>");
+        stringBuilder.append("Type: ")
+            .append("Travel Agency")
+            .append("<br/>");
+        return stringBuilder.toString();
+    }
+	
 
 	@GetMapping("/currency-exchange/from/{from}/to/{to}")
 	private ExchangeValue retrieveExchangeValue(@PathVariable("from") String from, @PathVariable("to") String to) {

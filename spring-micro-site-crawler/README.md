@@ -1,3 +1,4 @@
+mvn clean install
 docker build -t  pintu12345/spring-micro-site-crawler:v3 . 
 docker push pintu12345/spring-micro-site-crawler:v3
 

@@ -82,3 +82,11 @@ C:\project\kubernaties\kubernetes\properties>kubectl create -f site-crawler-conf
 C:\project\kubernaties\kubernetes\properties>kubectl create -f business-remoting-configmap.yaml
 
 C:\project\kubernaties\kubernetes\properties>kubectl create -f elastic-configmap.yaml
+
+
+
+
+http://35.222.11.1/crawler/actuator/env
+
+
+

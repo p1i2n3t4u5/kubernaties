@@ -1,5 +1,8 @@
 package com.aem.micro.controller;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +21,24 @@ public class LimitConfigurationController {
 	public String test() {
       return "spring-micro-elastic working";
 	}
+	
+	@GetMapping("/get")
+	public String get() throws UnknownHostException {
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Host: ")
+            .append(InetAddress.getLocalHost()
+                .getHostName())
+            .append("<br/>");
+        stringBuilder.append("IP: ")
+            .append(InetAddress.getLocalHost()
+                .getHostAddress())
+            .append("<br/>");
+        stringBuilder.append("Type: ")
+            .append("Travel Agency")
+            .append("<br/>");
+        return stringBuilder.toString();
+    }
 
 	@GetMapping("/limits")
 	public LimitConfiguration retriveLimitsFromConfiguration() {

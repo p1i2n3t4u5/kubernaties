@@ -1,70 +1,26 @@
-kind: ConfigMap
-apiVersion: v1
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
 metadata:
-  name: spring-micro-site-crawler
-data:
-  application.yml: |-
-      #'default' profile only
-      management:
-        endpoints:
-          web:
-            exposure:
-              include: '*'
-        endpoint:
-            restart:
-              enabled: true      
-            refresh:
-              enabled: true    
-      
-      eureka:
-         client:
-          enabled: false 
-               
-      server:
-        port: 8100
-      spring:
-        application:
-          name: spring-micro-elastic
-        cloud:
-          kubernetes:
-            discovery:
-              all-namespaces: true
-              enabled: true 
-            config:
-              enabled: true
-              name: ${spring.application.name}
-              namespace: default
-            reload:
-              enabled: true
-              monitoring-config-maps: true
-              strategy: refresh
-              mode: event
-        profiles:
-          active: dev
-        sleuth:
-          sampler:
-            probability: 1.0
-          traceId128: true
-          enabled: true  
-        zipkin:
-          enabled: true
-      last:
-        applied:
-          profile: configmap_default    
-          
-      #'dev' profile only 
-      --- 
-      spring:
-        profiles: dev 
-      last:
-        applied:
-          profile: configmap_dev
-        
-      
-      #'prod' profile only 
-      --- 
-      spring:
-        profiles: prod 
-      last:
-        applied:
-          profile: configmap_prod  
+  namespace: default
+  name: service-discovery-client-role
+rules:
+- apiGroups: [""] # "" indicates the core API group
+  resources: ["services", "pods", "configmaps", "endpoints"]
+  verbs: ["get", "watch", "list"]
+
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: service-discovery-client-role-binding
+  namespace: default
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: service-discovery-client-role
+subjects:
+  - kind: ServiceAccount
+    name: default
+    namespace: default
+    apiGroup: rbac.authorization.k8s.io
