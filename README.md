@@ -28,10 +28,10 @@ deployment.apps/spring-micro-site-crawler created
 C:\project\kubernaties\kubernetes>kubectl create -f business-remoting-service.yaml
 service/business-remoting-service created
 
-C:\project\kubernaties\kubernetes>kubectl create -f "elastic-service .yaml"
+C:\project\kubernaties\kubernetes>kubectl create -f elastic-service.yaml
 service/elastic-service created
 
-C:\project\kubernaties\kubernetes>kubectl create -f "site-crawler-service .yaml"
+C:\project\kubernaties\kubernetes>kubectl create -f site-crawler-service.yaml
 service/site-crawler-service created
 
 C:\project\kubernaties\kubernetes>kubectl create -f default-namespace-permission.yaml

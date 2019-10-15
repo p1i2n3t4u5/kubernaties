@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.aem.micro.RibbonConfiguration;
 
-@FeignClient(name = "spring-micro-business-remoting")
-@RibbonClient(name = "spring-micro-business-remoting", configuration = RibbonConfiguration.class)
+@FeignClient(name = "business-remoting-service")
+@RibbonClient(name = "business-remoting-service", configuration = RibbonConfiguration.class)
 public interface CurrencyExchangeServiceProxy {
 
 	@GetMapping("/currency-exchange/from/{from}/to/{to}")

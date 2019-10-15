@@ -48,3 +48,7 @@ http://localhost:8100/currency-converter-feign/from/USD/to/INR/quantity/3
 			<artifactId>spring-cloud-kubernetes-config</artifactId>
 		</dependency>
 </dependencies>	
+
+
+
+https://github.com/kubernetes/ingress-nginx
