@@ -1,0 +1,22 @@
+kubectl create namespace observability
+kubectl create -f https://raw.githubusercontent.com/jaegertracing/jaeger-operator/master/deploy/crds/jaegertracing.io_jaegers_crd.yaml
+kubectl create -f https://raw.githubusercontent.com/jaegertracing/jaeger-operator/master/deploy/service_account.yaml
+kubectl create -f https://raw.githubusercontent.com/jaegertracing/jaeger-operator/master/deploy/role.yaml
+kubectl create -f https://raw.githubusercontent.com/jaegertracing/jaeger-operator/master/deploy/role_binding.yaml
+kubectl create -f https://raw.githubusercontent.com/jaegertracing/jaeger-operator/master/deploy/operator.yaml
+
+
+Once the jaeger-operator deployment in the namespace observability is ready, create a Jaeger instance, like:
+
+kubectl apply -f - <<EOF
+apiVersion: jaegertracing.io/v1
+kind: Jaeger
+metadata:
+  name: simplest
+EOF
+This will create a Jaeger instance named simplest. The Jaeger UI is served via the Ingress, like:
+
+$ kubectl get ingress
+NAME             HOSTS     ADDRESS          PORTS     AGE
+simplest-query   *         192.168.122.34   80        3m
+In this example, the Jaeger UI is available at http://192.168.122.34.

@@ -1,0 +1,57 @@
+apiVersion: kafka.strimzi.io/v1beta1
+kind: Kafka
+metadata:
+  name: my-cluster
+spec:
+  kafka:
+    version: 2.3.0
+    replicas: 2
+    listeners:
+      plain: {}
+      tls: {}
+#i added for node port access      
+      external:
+        type: nodeport
+        tls: true
+        authentication:
+          type: tls
+        overrides:
+          bootstrap:
+            nodePort: 32100
+            address: my-special-dns.com
+          brokers:
+          - broker: 0
+            advertisedHost: example.host.1
+            advertisedPort: 12340
+            nodePort: 32000
+          - broker: 1
+            advertisedHost: example.host.2
+            advertisedPort: 12341
+            nodePort: 32001
+          - broker: 2
+            advertisedHost: example.host.3
+            advertisedPort: 12342
+            nodePort: 32002
+# ends here      
+    config:
+      offsets.topic.replication.factor: 3
+      transaction.state.log.replication.factor: 3
+      transaction.state.log.min.isr: 2
+      log.message.format.version: "2.3"
+    storage:
+      type: jbod
+      volumes:
+      - id: 0
+        type: persistent-claim
+        size: 5Gi
+        deleteClaim: false
+  zookeeper:
+    replicas: 1
+    storage:
+      type: persistent-claim
+      size: 5Gi
+      deleteClaim: false
+  entityOperator:
+    topicOperator: {}
+    userOperator: {}
+

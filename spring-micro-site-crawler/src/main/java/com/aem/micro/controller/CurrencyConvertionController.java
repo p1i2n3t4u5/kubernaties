@@ -8,16 +8,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.aem.micro.bean.CurrencyConversionBean;
+import com.aem.micro.proxy.BusinessRemotingProxy;
 
 @RestController
 public class CurrencyConvertionController {
 	Logger logger = LoggerFactory.getLogger(CurrencyConvertionController.class);
 
 	@Autowired
-	private CurrencyExchangeServiceProxy proxy;
+	private BusinessRemotingProxy proxy;
 
 	@Autowired
 	private DiscoveryClient discoveryClient;
@@ -44,22 +49,23 @@ public class CurrencyConvertionController {
                 .getHostAddress())
             .append("<br/>");
         stringBuilder.append("Type: ")
-            .append("Travel Agency")
+            .append("Spring Micro Site Crawler")
             .append("<br/>");
         return stringBuilder.toString();
     }
 	
 
 	@GetMapping("/currency-converter-feign/from/{from}/to/{to}/quantity/{quantity}")
-	public CurrencyConversionBean convertCurrencyFeign(@PathVariable("from") String from, @PathVariable("to") String to,
+	public ResponseEntity<CurrencyConversionBean> convertCurrencyFeign(@PathVariable("from") String from, @PathVariable("to") String to,
 			@PathVariable("quantity") BigDecimal quantity) {
 
-		CurrencyConversionBean response = proxy.retrieveExchangeValue(from, to);
-
+		ResponseEntity<CurrencyConversionBean> response = proxy.retrieveExchangeValue(from, to);
 		logger.info("{}", response);
-
-		return new CurrencyConversionBean(response.getId(), from, to, response.getConversionMultiple(), quantity,
-				quantity.multiply(response.getConversionMultiple()), response.getPort());
+		CurrencyConversionBean conversionBean= response.getBody();
+		
+		conversionBean.setQuantity(quantity);
+		conversionBean.setTotalAmount(quantity.multiply(conversionBean.getConversionMultiple()));
+		return new ResponseEntity<CurrencyConversionBean>(conversionBean, HttpStatus.OK);
 	}
 
 }

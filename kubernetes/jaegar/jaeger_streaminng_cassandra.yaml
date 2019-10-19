@@ -1,0 +1,34 @@
+apiVersion: jaegertracing.io/v1
+kind: Jaeger
+metadata:
+  name: simple-streaming
+spec:
+  strategy: streaming
+  collector:
+    options:
+      kafka:
+        producer:
+          topic: jaeger-spans
+          brokers: my-cluster-kafka-brokers.kafka:9092
+  ingester:
+    options:
+      kafka:
+        consumer:
+          topic: jaeger-spans
+          brokers: my-cluster-kafka-brokers.kafka:9092
+      ingester:
+        deadlockInterval: 0
+  storage:
+    type: cassandra
+    options: 
+      cassandra:
+        servers: cassandra
+        keyspace: jaeger_v1_datacenter3
+    cassandraCreateSchema: 
+      datacenter: "datacenter3"
+      mode: "test"
+      
+      
+#The default create-schema job uses MODE=prod, which implies a replication factor of 2,
+#effectively meaning that at least 3 nodes are required in the Cassandra cluster. 
+#If a SimpleStrategy is desired, set the mode to test, which then sets the replication factor of 1. Refer to the create-schema script for more details.

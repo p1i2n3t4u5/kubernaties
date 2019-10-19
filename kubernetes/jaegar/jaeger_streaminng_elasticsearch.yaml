@@ -1,0 +1,25 @@
+apiVersion: jaegertracing.io/v1
+kind: Jaeger
+metadata:
+  name: simple-streaming
+spec:
+  strategy: streaming
+  collector:
+    options:
+      kafka: # <1>
+        producer:
+          topic: jaeger-spans
+          brokers: my-cluster-kafka-brokers.kafka:9092
+  ingester:
+    options:
+      kafka: # <1>
+        consumer:
+          topic: jaeger-spans
+          brokers: my-cluster-kafka-brokers.kafka:9092
+      ingester:
+        deadlockInterval: 0 # <2>
+  storage:
+    type: elasticsearch
+    options:
+      es:
+        server-urls: http://elasticsearch:9200

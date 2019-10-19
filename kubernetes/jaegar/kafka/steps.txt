@@ -1,0 +1,47 @@
+
+
+
+cd C:\project\kubernaties\kubernetes\jaegar\kafka
+
+kubectl create -f kafka-namespace.yaml
+
+//running on kafka namespace 
+kubectl create -f strimzi-cluster-operator-0.14.0.yaml -n kafka
+or
+kubectl apply -f strimzi-cluster-operator-0.14.0.yaml -n kafka
+
+//running on kafka namespace
+kubectl create -f kafka-persistent.yaml -n kafka
+
+kubectl apply -f kafka-persistent.yaml -n kafka
+
+
+C:\project\kubernaties\kubernetes\jaegar\kafka>kubectl wait kafka/my-cluster --for=condition=Ready --timeout=300s -n kafka
+kafka.kafka.strimzi.io/my-kafka-cluster condition met
+
+C:\project\kubernaties\kubernetes\jaegar\kafka>kubectl get pods --namespace kafka
+NAME                                               READY   STATUS    RESTARTS   AGE
+my-kafka-cluster-entity-operator-64f9b5b5b-p8sxb   3/3     Running   0          3m59s
+my-kafka-cluster-kafka-0                           2/2     Running   0          4m39s
+my-kafka-cluster-kafka-1                           2/2     Running   0          4m39s
+my-kafka-cluster-zookeeper-0                       2/2     Running   0          5m41s
+my-kafka-cluster-zookeeper-1                       2/2     Running   0          5m40s
+strimzi-cluster-operator-5c78c57cfc-2wrdz          1/1     Running   0          11m
+
+Producer
+---------------
+kubectl -n kafka run kafka-producer -ti --image=strimzi/kafka:0.14.0-kafka-2.3.0 --rm=true --restart=Never -- bin/kafka-console-producer.sh --broker-list my-cluster-kafka-bootstrap:9092 --topic my-topic
+
+
+kubectl -n kafka run kafka-producer -ti --image=strimzi/kafka:0.14.0-kafka-2.3.0 --rm=true --restart=Never -- bin/kafka-console-producer.sh --broker-list 35.184.105.21:32100 --topic my-topic
+
+Consumer
+--------------
+kubectl -n kafka run kafka-consumer -ti --image=strimzi/kafka:0.14.0-kafka-2.3.0 --rm=true --restart=Never -- bin/kafka-console-consumer.sh --bootstrap-server my-cluster-kafka-bootstrap:9092 --topic my-topic --from-beginning
+
+kubectl -n kafka run kafka-consumer -ti --image=strimzi/kafka:0.14.0-kafka-2.3.0 --rm=true --restart=Never -- bin/kafka-console-consumer.sh --bootstrap-server 35.184.105.21:32100 --topic my-topic --from-beginning
+
+
+kubectl get service my-cluster-kafka-external-bootstrap -o=jsonpath='{.spec.ports[0].nodePort}' -n kafka
+gcloud compute firewall-rules create test-node-port4 --allow tcp:32100
+
