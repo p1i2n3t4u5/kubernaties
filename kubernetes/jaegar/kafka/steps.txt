@@ -30,18 +30,30 @@ strimzi-cluster-operator-5c78c57cfc-2wrdz          1/1     Running   0          
 
 Producer
 ---------------
-kubectl -n kafka run kafka-producer -ti --image=strimzi/kafka:0.14.0-kafka-2.3.0 --rm=true --restart=Never -- bin/kafka-console-producer.sh --broker-list my-cluster-kafka-bootstrap:9092 --topic my-topic
+kubectl -n kafka run kafka-producer -ti --image=strimzi/kafka:0.14.0-kafka-2.3.0 --rm=true --restart=Never -- bin/kafka-console-producer.sh --broker-list my-cluster-kafka-external-bootstrap:9092 --topic my-topic
+
+kubectl -n kafka run kafka-producer -ti --image=strimzi/kafka:0.14.0-kafka-2.3.0 --rm=true --restart=Never -- bin/kafka-console-producer.sh --broker-list my-special-dns.com:32100 --topic my-topic
 
 
-kubectl -n kafka run kafka-producer -ti --image=strimzi/kafka:0.14.0-kafka-2.3.0 --rm=true --restart=Never -- bin/kafka-console-producer.sh --broker-list 35.184.105.21:32100 --topic my-topic
 
 Consumer
 --------------
-kubectl -n kafka run kafka-consumer -ti --image=strimzi/kafka:0.14.0-kafka-2.3.0 --rm=true --restart=Never -- bin/kafka-console-consumer.sh --bootstrap-server my-cluster-kafka-bootstrap:9092 --topic my-topic --from-beginning
+kubectl -n kafka run kafka-consumer -ti --image=strimzi/kafka:0.14.0-kafka-2.3.0 --rm=true --restart=Never -- bin/kafka-console-consumer.sh --bootstrap-server my-cluster-kafka-external-bootstrap:9092 --topic my-topic --from-beginning
 
-kubectl -n kafka run kafka-consumer -ti --image=strimzi/kafka:0.14.0-kafka-2.3.0 --rm=true --restart=Never -- bin/kafka-console-consumer.sh --bootstrap-server 35.184.105.21:32100 --topic my-topic --from-beginning
 
 
 kubectl get service my-cluster-kafka-external-bootstrap -o=jsonpath='{.spec.ports[0].nodePort}' -n kafka
 gcloud compute firewall-rules create test-node-port4 --allow tcp:32100
+
+
+C:\project\kubernaties\kubernetes\jaegar\kafka>kubectl get service my-cluster-kafka-external-bootstrap -o=jsonpath='{.spec.ports[0].nodePort}'  -n kafka
+
+C:\project\kubernaties\kubernetes\jaegar\kafka>kubectl get node gke-standard-cluster-1-default-pool-f4d1bf53-1878 -o=jsonpath='{range.status.addresses[*]}{.type}{.address}'   -n kafka
+
+
+
+
+
+
+
 
