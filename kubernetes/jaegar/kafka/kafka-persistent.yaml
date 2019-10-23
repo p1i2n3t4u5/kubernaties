@@ -5,32 +5,28 @@ metadata:
 spec:
   kafka:
     version: 2.3.0
-    replicas: 2
+    replicas: 3
     listeners:
-      plain: {}
-      tls: {}
 #i added for node port access      
       external:
         type: nodeport
-        tls: true
-        authentication:
-          type: tls
+        tls: false
         overrides:
           bootstrap:
             nodePort: 32100
-            address: my-special-dns.com
+            address: 34.68.133.9
           brokers:
           - broker: 0
-            advertisedHost: example.host.1
-            advertisedPort: 12340
+            advertisedHost: 34.68.133.9
+           # advertisedPort: 12340
             nodePort: 32000
           - broker: 1
-            advertisedHost: example.host.2
-            advertisedPort: 12341
+            advertisedHost: 34.68.133.9
+           # advertisedPort: 12341
             nodePort: 32001
           - broker: 2
-            advertisedHost: example.host.3
-            advertisedPort: 12342
+            advertisedHost: 34.68.133.9
+           # advertisedPort: 12342
             nodePort: 32002
 # ends here      
     config:
@@ -43,13 +39,13 @@ spec:
       volumes:
       - id: 0
         type: persistent-claim
-        size: 5Gi
+        size: 30Gi
         deleteClaim: false
   zookeeper:
-    replicas: 1
+    replicas: 3
     storage:
       type: persistent-claim
-      size: 5Gi
+      size: 30Gi
       deleteClaim: false
   entityOperator:
     topicOperator: {}

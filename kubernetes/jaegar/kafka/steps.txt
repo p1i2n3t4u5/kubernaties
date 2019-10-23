@@ -32,26 +32,48 @@ Producer
 ---------------
 kubectl -n kafka run kafka-producer -ti --image=strimzi/kafka:0.14.0-kafka-2.3.0 --rm=true --restart=Never -- bin/kafka-console-producer.sh --broker-list my-cluster-kafka-external-bootstrap:9092 --topic my-topic
 
-kubectl -n kafka run kafka-producer -ti --image=strimzi/kafka:0.14.0-kafka-2.3.0 --rm=true --restart=Never -- bin/kafka-console-producer.sh --broker-list my-special-dns.com:32100 --topic my-topic
+kubectl -n kafka run kafka-producer -ti --image=strimzi/kafka:0.14.0-kafka-2.3.0 --rm=true --restart=Never -- bin/kafka-console-producer.sh --broker-list my-cluster-kafka-bootstrap:9092 --topic my-topic
 
+kubectl -n kafka run kafka-producer -ti --image=strimzi/kafka:0.14.0-kafka-2.3.0 --rm=true --restart=Never -- bin/kafka-console-producer.sh --broker-list my-cluster-kafka-bootstrap:9092 --topic my-topic
 
+kubectl -n kafka run kafka-producer -ti --image=strimzi/kafka:0.14.0-kafka-2.3.0 --rm=true --restart=Never -- bin/kafka-console-producer.sh --broker-list 34.68.133.9:32001 --topic my-topic
+
+kubectl -n kafka run kafka-producer2 -ti --image=strimzi/kafka:0.14.0-kafka-2.3.0 --rm=true --restart=Never -- bin/kafka-console-producer.sh --broker-list 34.68.133.9:32100 --topic my-topic2
 
 Consumer
 --------------
 kubectl -n kafka run kafka-consumer -ti --image=strimzi/kafka:0.14.0-kafka-2.3.0 --rm=true --restart=Never -- bin/kafka-console-consumer.sh --bootstrap-server my-cluster-kafka-external-bootstrap:9092 --topic my-topic --from-beginning
 
+kubectl -n kafka run kafka-consumer -ti --image=strimzi/kafka:0.14.0-kafka-2.3.0 --rm=true --restart=Never -- bin/kafka-console-consumer.sh --bootstrap-server my-cluster-kafka-bootstrap:9092 --topic my-topic --from-beginning
+
+kubectl -n kafka run kafka-consumer -ti --image=strimzi/kafka:0.14.0-kafka-2.3.0 --rm=true --restart=Never -- bin/kafka-console-consumer.sh --bootstrap-server 34.68.133.9:32000 --topic my-topic --from-beginning
+
+kubectl -n kafka run kafka-consumer -ti --image=strimzi/kafka:0.14.0-kafka-2.3.0 --rm=true --restart=Never -- bin/kafka-console-consumer.sh --bootstrap-server 34.68.133.9:32001 --topic my-topic --from-beginning
+
+kubectl -n kafka run kafka-consumer2 -ti --image=strimzi/kafka:0.14.0-kafka-2.3.0 --rm=true --restart=Never -- bin/kafka-console-consumer.sh --bootstrap-server 34.68.133.9:32100 --topic my-topic2 --from-beginning
 
 
-kubectl get service my-cluster-kafka-external-bootstrap -o=jsonpath='{.spec.ports[0].nodePort}' -n kafka
+
+
+kubectl get service my-cluster-kafka-external-bootstrap -o=jsonpath='{.spec.ports[0].nodePort}'  -n kafka
+kubectl get nodes 
+kubectl get node gke-standard-cluster-1-default-pool-378c6f26-g9lg -o=jsonpath='{range.status.addresses[*]}{.type}{.address}'   -n kafka
+
+
+kubectl exec my-cluster-kafka-0 -n kafka  -c kafka -it -- sh
+kubectl exec my-cluster-kafka-1 -n kafka  -c kafka -it -- sh
+cd /tmp 
+cat strimzi.properties
+
+
 gcloud compute firewall-rules create test-node-port4 --allow tcp:32100
+gcloud compute firewall-rules create test-node-port5 --allow tcp:32000
+gcloud compute firewall-rules create test-node-port6 --allow tcp:32001
+gcloud compute firewall-rules create test-node-port7 --allow tcp:32002
 
 
-C:\project\kubernaties\kubernetes\jaegar\kafka>kubectl get service my-cluster-kafka-external-bootstrap -o=jsonpath='{.spec.ports[0].nodePort}'  -n kafka
-
-C:\project\kubernaties\kubernetes\jaegar\kafka>kubectl get node gke-standard-cluster-1-default-pool-f4d1bf53-1878 -o=jsonpath='{range.status.addresses[*]}{.type}{.address}'   -n kafka
-
-
-
+kubectl logs -f my-cluster-kafka-1 -n kafka  -c kafka 
+kubectl logs -f my-cluster-kafka-0 -n kafka  -c kafka
 
 
 
