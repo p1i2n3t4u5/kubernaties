@@ -1,4 +1,4 @@
-# kubernaties
+# kubernetes
 
 steps to deploy in a google cluster
 -----------------------------------
